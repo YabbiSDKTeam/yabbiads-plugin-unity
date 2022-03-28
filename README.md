@@ -85,4 +85,4 @@ SDK должно иметь методы и колбеки, отвечающие
 
 ## SDK API
 
-Теперь API для SDK описывается в своём файле документации: [SDK_DOC](./documentation/SDK_DOC.md)
+Теперь API для SDK описывается в своём файле документации: [SDK_DOC](./documentation/SDK_DOC.MD)
