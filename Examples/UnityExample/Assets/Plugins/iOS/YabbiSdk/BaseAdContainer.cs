@@ -5,7 +5,7 @@ using AOT;
 
 namespace Me.Yabbi.Ads
 {
-    public class BaseAdContainer : MonoBehaviour, IAdContainer
+    public class BaseAdContainer : IAdContainer
     {   
         private const string kIdeError = "Swift not supported in Unity IDE.";
 
@@ -123,11 +123,6 @@ namespace Me.Yabbi.Ads
                 adEvents.onFail(kIdeError);
             }
             #endif
-        }
-
-        private void OnDestroy() 
-        {
-            Dispose();
         }
 
         public void Dispose()
