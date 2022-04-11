@@ -15,7 +15,8 @@ public class iOSPostProcessBuild
 
     [PostProcessBuild(0)]
     public static void ChangeXcodePlist(BuildTarget buildTarget, string pathToBuildProject)
-    {
+    {   
+        #if UNITY_IOS
         if (buildTarget == BuildTarget.iOS)
         {
             string plistPath = pathToBuildProject + "/Info.plist";
@@ -34,5 +35,6 @@ public class iOSPostProcessBuild
             // Save changes to the plist:
             File.WriteAllText(plistPath, plist.WriteToString());
         }
+        #endif
     }
 }
