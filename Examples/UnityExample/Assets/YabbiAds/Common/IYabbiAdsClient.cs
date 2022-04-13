@@ -2,7 +2,6 @@ namespace YabbiAds.Unity.Common
 {
     public interface IYabbiAdsClient
     {
-        void initialize(string appKey);
         bool isInitialized(int adType);
         bool show(int adTypes);
         bool isLoaded(int adType);
