@@ -13,8 +13,7 @@ enum AdType
 }
 
 public class Showcase : MonoBehaviour
-{   
-
+{
     public Text logger;
     public InputField pubIDField;
     public InputField interstitialIDField;

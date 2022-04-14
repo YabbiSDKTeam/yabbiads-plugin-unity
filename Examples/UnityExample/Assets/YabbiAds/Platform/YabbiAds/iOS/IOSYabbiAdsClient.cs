@@ -1,18 +1,20 @@
 using YabbiAds.Common;
 
-namespace YabbiAds.Platform.Android
+namespace YabbiAds.Platform.iOS
 {
-    public class AndroidYabbiAdsClient : IYabbiAdsClient
-    {   
+    public class IOSYabbiAdsClient : IYabbiAdsClient
+    {
+        
         #region Singleton
 
-        private AndroidYabbiAdsClient()
+        private IOSYabbiAdsClient()
         {
         }
 
-        public static AndroidYabbiAdsClient Instance { get; } = new AndroidYabbiAdsClient();
+        public static IOSYabbiAdsClient Instance { get; } = new IOSYabbiAdsClient();
 
         #endregion
+        
         
         public bool IsInitialized(int adType)
         {

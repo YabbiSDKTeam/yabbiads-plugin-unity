@@ -1,14 +1,14 @@
-namespace YabbiAds.Unity.Common
+namespace YabbiAds.Common
 {
     public interface IYabbiAdsClient
     {
-        bool isInitialized(int adType);
-        bool show(int adTypes);
-        bool isLoaded(int adType);
-        void cache(int adType);
-        void disableLocationPermissionCheck();
-        void setInterstitialCallbacks(IEventListener listener);
-        void setVideoCallbacks(IEventListener listener);
-        void destroy(int adType);
+        bool IsInitialized(int adType);
+        bool Show(int adTypes);
+        bool IsLoaded(int adType);
+        void Cache(int adType);
+        void DisableLocationPermissionCheck();
+        void SetInterstitialCallbacks(IEventListener listener);
+        void SetVideoCallbacks(IEventListener listener);
+        void Destroy(int adType);
     }
 }
