@@ -1,14 +1,18 @@
+using System.Collections.Generic;
+
 namespace YabbiAds.Common
 {
     public interface IYabbiAdsClient
     {
-        bool IsInitialized(int adType);
-        bool Show(int adTypes);
+        public void Initialize(string publisherID);
+        public void InitializeAdContainer(string unitID, int adType);
+        bool IsAdInitialized(int adType);
+        void Show(int adType);
         bool IsLoaded(int adType);
-        void Cache(int adType);
-        void DisableLocationPermissionCheck();
-        void SetInterstitialCallbacks(IEventListener listener);
-        void SetVideoCallbacks(IEventListener listener);
+        void Load(int adType);
+        public void SetAlwaysRequestLocation(int adType, bool isEnabled);
+        void SetInterstitialCallbacks(IInterstitialAdListener adListener);
+        void SetVideoCallbacks(IVideoAdListener adListener);
         void Destroy(int adType);
     }
 }

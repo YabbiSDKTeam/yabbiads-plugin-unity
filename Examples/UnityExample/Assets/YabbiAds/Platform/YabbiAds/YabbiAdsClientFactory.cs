@@ -1,5 +1,4 @@
 using YabbiAds.Common;
-using YabbiAds.Platform.iOS;
 #if UNITY_ANDROID && !UNITY_EDITOR
 using YabbiAds.Platform.Android;
 #elif UNITY_IPHONE && !UNITY_EDITOR

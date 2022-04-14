@@ -7,21 +7,25 @@ namespace YabbiAds.Platform.Dummy
     {
         #region YabbiAds
 
-        public void Initialize(string appKey)
+        public void Initialize(string publisherId)
         {
             debugLog("YabbiAds.initialize");
         }
 
-        public bool IsInitialized(int adType)
+        public void InitializeAdContainer(string unitId, int adType)
+        {
+            debugLog("YabbiAds.InitializeAdContainer");
+        }
+
+        public bool IsAdInitialized(int adType)
         {
             debugLog("YabbiAds.isInitialized");
             return false;
         }
 
-        public bool Show(int adType)
+        public void Show(int adType)
         {
             debugLog("YabbiAds.show");
-            return false;
         }
 
         public bool IsLoaded(int adType)
@@ -30,22 +34,22 @@ namespace YabbiAds.Platform.Dummy
             return false;
         }
 
-        public void Cache(int adType)
+        public void Load(int adType)
         {
-            debugLog("YabbiAds.cache");
+            debugLog("YabbiAds.Load");
         }
 
-        public void DisableLocationPermissionCheck()
+        public void SetAlwaysRequestLocation(int adType, bool isEnabled)
         {
-            debugLog("YabbiAds.disableLocationPermissionCheck");
+            debugLog("YabbiAds.SetAlwaysRequestLocation");
         }
 
-        public void SetInterstitialCallbacks(IEventListener listener)
+        public void SetInterstitialCallbacks(IInterstitialAdListener adListener)
         {
             debugLog("YabbiAds.setInterstitialCallbacks");
         }
 
-        public void SetVideoCallbacks(IEventListener listener)
+        public void SetVideoCallbacks(IVideoAdListener adListener)
         {
             debugLog("YabbiAds.setVideoCallbacks");
         }
