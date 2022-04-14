@@ -12,7 +12,7 @@ namespace YabbiAds.Platform.Dummy
             debugLog("YabbiAds.initialize");
         }
 
-        public void InitializeAdContainer(string unitId, int adType)
+        public void InitializeAd(string unitId, int adType)
         {
             debugLog("YabbiAds.InitializeAdContainer");
         }
@@ -23,18 +23,18 @@ namespace YabbiAds.Platform.Dummy
             return false;
         }
 
-        public void Show(int adType)
+        public void ShowAd(int adType)
         {
             debugLog("YabbiAds.show");
         }
 
-        public bool IsLoaded(int adType)
+        public bool IsAdLoaded(int adType)
         {
             debugLog("YabbiAds.isLoaded");
             return false;
         }
 
-        public void Load(int adType)
+        public void LoadAd(int adType)
         {
             debugLog("YabbiAds.Load");
         }
@@ -54,7 +54,7 @@ namespace YabbiAds.Platform.Dummy
             debugLog("YabbiAds.setVideoCallbacks");
         }
 
-        public void Destroy(int adTypes)
+        public void DestroyAd(int adType)
         {
             debugLog("YabbiAds.destroy");
         }

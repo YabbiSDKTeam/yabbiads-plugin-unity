@@ -9,7 +9,7 @@ namespace YabbiAds.Api
 
         private static IYabbiAdsClient GetInstance()
         {
-            return _client ?? (_client = YabbiAdsClientFactory.GetYabbiAdsClient());
+            return _client ??= YabbiAdsClientFactory.GetYabbiAdsClient();
         }
 
         public static void Initialize(string publisherID)
@@ -19,7 +19,7 @@ namespace YabbiAds.Api
 
         public static void InitializeAdContainer(string unitID, int adType)
         {
-            GetInstance().InitializeAdContainer(unitID, adType);
+            GetInstance().InitializeAd(unitID, adType);
         }
 
         public static bool IsAdInitialized(int adType)
@@ -27,19 +27,19 @@ namespace YabbiAds.Api
             return GetInstance().IsAdInitialized(adType);
         }
 
-        public static void Show(int adType)
+        public static void ShowAd(int adType)
         {
-            GetInstance().Show(adType);
+            GetInstance().ShowAd(adType);
         }
 
-        public static bool IsLoaded(int adType)
+        public static bool IsAdLoaded(int adType)
         {
-            return GetInstance().IsLoaded(adType);
+            return GetInstance().IsAdLoaded(adType);
         }
 
         public static void Load(int adType)
         {
-            GetInstance().Load(adType);
+            GetInstance().LoadAd(adType);
         }
 
         public static void SetAlwaysRequestLocation(int adType, bool isEnabled)
@@ -57,9 +57,9 @@ namespace YabbiAds.Api
             GetInstance().SetVideoCallbacks(adListener);
         }
 
-        public static void Destroy(int adType)
+        public static void DestroyAd(int adType)
         {
-            GetInstance().Destroy(adType);
+            GetInstance().DestroyAd(adType);
         }
     }
 }

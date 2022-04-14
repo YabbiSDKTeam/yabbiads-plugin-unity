@@ -5,14 +5,14 @@ namespace YabbiAds.Common
     public interface IYabbiAdsClient
     {
         public void Initialize(string publisherID);
-        public void InitializeAdContainer(string unitID, int adType);
+        public void InitializeAd(string unitID, int adType);
         bool IsAdInitialized(int adType);
-        void Show(int adType);
-        bool IsLoaded(int adType);
-        void Load(int adType);
+        void ShowAd(int adType);
+        bool IsAdLoaded(int adType);
+        void LoadAd(int adType);
         public void SetAlwaysRequestLocation(int adType, bool isEnabled);
         void SetInterstitialCallbacks(IInterstitialAdListener adListener);
         void SetVideoCallbacks(IVideoAdListener adListener);
-        void Destroy(int adType);
+        void DestroyAd(int adType);
     }
 }

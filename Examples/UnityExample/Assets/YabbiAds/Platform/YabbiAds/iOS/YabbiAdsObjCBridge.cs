@@ -15,25 +15,28 @@ namespace YabbiAds.Platform.iOS
         internal static extern long YabbiAdsInitialize(string publisherID);
 
         [DllImport("__Internal")]
-        internal static extern long YabbiAdsInitializeAdContainer(string unitId, long adType);
+        internal static extern long YabbiAdsInitializeAdContainer(string unitId, int adType);
 
         [DllImport("__Internal")]
-        internal static extern void YabbiAdsLoadAd(long adType);
+        internal static extern void YabbiAdsLoadAd(int adType);
 
         [DllImport("__Internal")]
-        internal static extern void YabbiAdsShowContainer(long adType);
+        internal static extern void YabbiAdsShowContainer(int adType);
 
         [DllImport("__Internal")]
-        internal static extern void YabbiAdsSetAlwaysRequestLocation(bool isEnabled, long adType);
+        internal static extern void YabbiAdsSetAlwaysRequestLocation(int adType, bool isEnabled);
 
         [DllImport("__Internal")]
-        internal static extern bool YabbiAdsIsAdLoaded(long adType);
+        internal static extern bool YabbiAdsIsAdLoaded(int adType);
 
         [DllImport("__Internal")]
-        internal static extern void YabbiAdsDispose(long adType);
+        internal static extern void YabbiAdsDispose(int adType);
 
         [DllImport("__Internal")]
         internal static extern void YabbiAdsSetInterstitialDelegate(
+            [MarshalAs(UnmanagedType.FunctionPtr)] YabbiAdsListenerType listener);
+
+        internal static extern void YabbiAdsSetVideoDelegate(
             [MarshalAs(UnmanagedType.FunctionPtr)] YabbiAdsListenerType listener);
 
         #endregion

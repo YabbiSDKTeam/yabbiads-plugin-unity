@@ -31,15 +31,17 @@ namespace YabbiAds.Platform.Android
             _publisherID = publisherID;
         }
 
-        public void InitializeAdContainer(string unitID, int adType)
+        public void InitializeAd(string unitID, int adType)
         {
             switch (adType)
             {
                 case YabbiAdsType.INTERSTITIAL:
-                    _interstitialAdContainer = new AndroidJavaObject(YabbiAdsConstants.InterstitialAdContainerClassName, GetActivity(), _publisherID, unitID);
+                    _interstitialAdContainer = new AndroidJavaObject(YabbiAdsConstants.InterstitialAdContainerClassName,
+                        GetActivity(), _publisherID, unitID);
                     break;
                 case YabbiAdsType.VIDEO:
-                    _videoAdContainer = new AndroidJavaObject(YabbiAdsConstants.VideoAdContainerClassName, GetActivity(), _publisherID, unitID);
+                    _videoAdContainer = new AndroidJavaObject(YabbiAdsConstants.VideoAdContainerClassName,
+                        GetActivity(), _publisherID, unitID);
                     break;
             }
         }
@@ -72,15 +74,15 @@ namespace YabbiAds.Platform.Android
 
         public bool IsAdInitialized(int adType) => GetAdByType(adType) != null;
 
-        public void Show(int adType) => GetAdByType(adType)?.Call("show");
+        public void ShowAd(int adType) => GetAdByType(adType)?.Call("show");
 
-        public bool IsLoaded(int adType)
+        public bool IsAdLoaded(int adType)
         {
             var container = GetAdByType(adType);
             return container != null && container.Call<bool>("isLoaded");
         }
 
-        public void Load(int adType)
+        public void LoadAd(int adType)
         {
             switch (adType)
             {
@@ -93,7 +95,8 @@ namespace YabbiAds.Platform.Android
             }
         }
 
-        public void SetAlwaysRequestLocation(int adType, bool isEnabled) =>  GetAdByType(adType)?.Call("setAlwaysRequestLocation", BoolToAndroid(isEnabled));
+        public void SetAlwaysRequestLocation(int adType, bool isEnabled) =>
+            GetAdByType(adType)?.Call("setAlwaysRequestLocation", BoolToAndroid(isEnabled));
 
         public void SetInterstitialCallbacks(IInterstitialAdListener adListener)
         {
@@ -105,7 +108,7 @@ namespace YabbiAds.Platform.Android
             _videoAdListener = adListener;
         }
 
-        public void Destroy(int adType)
+        public void DestroyAd(int adType)
         {
             switch (adType)
             {

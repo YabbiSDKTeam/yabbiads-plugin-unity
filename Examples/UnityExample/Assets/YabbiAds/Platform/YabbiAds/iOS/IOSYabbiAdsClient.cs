@@ -26,7 +26,7 @@ namespace YabbiAds.Platform.iOS
             throw new System.NotImplementedException();
         }
 
-        public void InitializeAdContainer(string unitID, int type)
+        public void InitializeAd(string unitID, int type)
         {
             throw new System.NotImplementedException();
         }
@@ -36,24 +36,24 @@ namespace YabbiAds.Platform.iOS
             throw new System.NotImplementedException();
         }
 
-        public void Show(int adType)
+        public void ShowAd(int adType)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool IsLoaded(int adType)
+        public bool IsAdLoaded(int adType)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Load(int adType)
+        public void LoadAd(int adType)
         {
-            throw new System.NotImplementedException();
+            YabbiAdsObjCBridge.YabbiAdsLoadAd(adType);
         }
 
         public void SetAlwaysRequestLocation(int adType, bool isEnabled)
         {
-            throw new System.NotImplementedException();
+            YabbiAdsObjCBridge.YabbiAdsSetAlwaysRequestLocation(adType, isEnabled);
         }
 
         public void SetInterstitialCallbacks(IInterstitialAdListener adListener)
@@ -64,10 +64,11 @@ namespace YabbiAds.Platform.iOS
 
         public void SetVideoCallbacks(IVideoAdListener adListener)
         {
-            throw new System.NotImplementedException();
+            _videoAdListener = adListener;
+            YabbiAdsObjCBridge.YabbiAdsSetVideoDelegate(VideoListener);
         }
 
-        public void Destroy(int adType)
+        public void DestroyAd(int adType)
         {
             throw new System.NotImplementedException();
         }
@@ -76,6 +77,15 @@ namespace YabbiAds.Platform.iOS
 
         [MonoPInvokeCallback(typeof(YabbiAdsListenerType))]
         internal static void IntestitalListener(string type, string message)
+        {
+        }
+
+        #endregion
+
+        #region Video Delegate
+
+        [MonoPInvokeCallback(typeof(YabbiAdsListenerType))]
+        internal static void VideoListener(string type, string message)
         {
         }
 

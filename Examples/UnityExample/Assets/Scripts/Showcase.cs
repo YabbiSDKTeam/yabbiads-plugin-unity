@@ -5,7 +5,6 @@ using YabbiAds.Api;
 using YabbiAds.Common;
 
 
-
 public class Showcase : MonoBehaviour, IInterstitialAdListener, IVideoAdListener
 {
     public Text logger;
@@ -19,29 +18,29 @@ public class Showcase : MonoBehaviour, IInterstitialAdListener, IVideoAdListener
     private const string VideoID = "551cb4fd-d20c-4edc-a1e7-8784b4470cbe";
 
 
-    void Start()
+    private void Start()
     {
         pubIDField.text = PubID;
         interstitialIDField.text = BannerID;
         videoIDField.text = VideoID;
-        
+
 
         RestartContainers();
     }
 
-    public void RestartContainers(){
+    public void RestartContainers()
+    {
         try
         {
-
-            Dispose();
+            Destroy();
 
             Yabbi.Initialize(PubID);
-                
+
             Yabbi.InitializeAdContainer(BannerID, YabbiAdsType.INTERSTITIAL);
             Yabbi.InitializeAdContainer(VideoID, YabbiAdsType.VIDEO);
             Yabbi.SetInterstitialCallbacks(this);
             Yabbi.SetVideoCallbacks(this);
-           
+
             WriteNewLog($"PubID: {PubID}\nBannerID: {BannerID}\nVideoID: {VideoID}");
         }
         catch (Exception e)
@@ -50,9 +49,10 @@ public class Showcase : MonoBehaviour, IInterstitialAdListener, IVideoAdListener
         }
     }
 
-    private void Dispose(){
-        Yabbi.Destroy(YabbiAdsType.INTERSTITIAL);
-        Yabbi.Destroy(YabbiAdsType.VIDEO);
+    private void Destroy()
+    {
+        Yabbi.DestroyAd(YabbiAdsType.INTERSTITIAL);
+        Yabbi.DestroyAd(YabbiAdsType.VIDEO);
     }
 
 
@@ -60,19 +60,22 @@ public class Showcase : MonoBehaviour, IInterstitialAdListener, IVideoAdListener
     {
         WriteNewLog("Me.Yabbi.Ads.InterstitialAdContainer | load");
         Yabbi.Load(YabbiAdsType.INTERSTITIAL);
-        
-    }
-     public void StartVideoBanner()
-    {
-        WriteNewLog("Me.Yabbi.Ads.VideoAdContainer | load");
-        Yabbi.Load(YabbiAdsType.VIDEO); 
     }
 
-     private void WriteNewLog(string message, bool restart = true)
-     {
-        if(restart){
-                logger.text = message;
-        } else {
+    public void StartVideoBanner()
+    {
+        WriteNewLog("Me.Yabbi.Ads.VideoAdContainer | load");
+        Yabbi.Load(YabbiAdsType.VIDEO);
+    }
+
+    private void WriteNewLog(string message, bool restart = true)
+    {
+        if (restart)
+        {
+            logger.text = message;
+        }
+        else
+        {
             var current = logger.text;
             logger.text = $"{current}\n{message}";
         }
@@ -81,7 +84,7 @@ public class Showcase : MonoBehaviour, IInterstitialAdListener, IVideoAdListener
     public void OnInterstitialLoaded()
     {
         WriteNewLog("InterstitialAdContainer | onLoad", false);
-        Yabbi.Show(YabbiAdsType.INTERSTITIAL);
+        Yabbi.ShowAd(YabbiAdsType.INTERSTITIAL);
     }
 
     public void OnInterstitialFailed(string error)
@@ -91,7 +94,7 @@ public class Showcase : MonoBehaviour, IInterstitialAdListener, IVideoAdListener
 
     public void OnInterstitialShown()
     {
-         WriteNewLog($"InterstitialAdContainer | onShow", false);
+        WriteNewLog($"InterstitialAdContainer | onShow", false);
     }
 
     public void OnInterstitialClosed()
@@ -102,7 +105,7 @@ public class Showcase : MonoBehaviour, IInterstitialAdListener, IVideoAdListener
     public void OnVideoLoaded()
     {
         WriteNewLog($"VideoAdContainer | onLoad", false);
-        Yabbi.Show(YabbiAdsType.VIDEO);
+        Yabbi.ShowAd(YabbiAdsType.VIDEO);
     }
 
     public void OnVideoFailed(string error)
@@ -125,4 +128,3 @@ public class Showcase : MonoBehaviour, IInterstitialAdListener, IVideoAdListener
         WriteNewLog($"VideoAdContainer | onClose", false);
     }
 }
-
