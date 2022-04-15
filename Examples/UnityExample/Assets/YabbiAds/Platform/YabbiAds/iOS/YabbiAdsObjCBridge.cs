@@ -6,9 +6,10 @@ namespace YabbiAds.Platform.iOS
 {
     // [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     // internal delegate void YabbiAdsListenerType([MarshalAs(UnmanagedType.LPStr), In] string type, string message);
-    internal delegate void YabbiCallbacks();
-
-    internal delegate void YabbiFailedCallbacks(string messgae);
+    internal delegate void YabbiInterstitialCallbacks();
+    internal delegate void YabbiInterstitialFailedCallbacks(string messgae);
+    internal delegate void YabbiVideoCallbacks();
+    internal delegate void YabbiVideoFailedCallbacks(string messgae);
 
 
     internal static class YabbiAdsObjCBridge
@@ -41,19 +42,19 @@ namespace YabbiAds.Platform.iOS
 
         [DllImport("__Internal")]
         internal static extern void YabbiSetInterstitialDelegate(
-            YabbiCallbacks onLoaded,
-            YabbiCallbacks onShown,
-            YabbiCallbacks onClosed,
-            YabbiFailedCallbacks onFailed
+            YabbiInterstitialCallbacks onLoaded,
+            YabbiInterstitialCallbacks onShown,
+            YabbiInterstitialCallbacks onClosed,
+            YabbiInterstitialFailedCallbacks onFailed
         );
 
         [DllImport("__Internal")]
         internal static extern void YabbiSetVideoDelegate(
-            YabbiCallbacks onLoaded,
-            YabbiCallbacks onShown,
-            YabbiCallbacks onClosed,
-            YabbiCallbacks onFinished,
-            YabbiFailedCallbacks onFailed
+            YabbiVideoCallbacks onLoaded,
+            YabbiVideoCallbacks onShown,
+            YabbiVideoCallbacks onClosed,
+            YabbiVideoCallbacks onFinished,
+            YabbiVideoFailedCallbacks onFailed
         );
 
         #endregion

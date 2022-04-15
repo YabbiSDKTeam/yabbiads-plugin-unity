@@ -77,25 +77,25 @@ namespace YabbiAds.Platform.iOS
 
         #region Intestital Delegate
 
-        [MonoPInvokeCallback(typeof(YabbiCallbacks))]
+        [MonoPInvokeCallback(typeof(YabbiInterstitialCallbacks))]
         internal static void OnInterstitialLoaded()
         {
             _interstitialAdListener?.OnInterstitialLoaded();
         }
 
-        [MonoPInvokeCallback(typeof(YabbiCallbacks))]
+        [MonoPInvokeCallback(typeof(YabbiInterstitialCallbacks))]
         internal static void OnInterstitialShown()
         {
             _interstitialAdListener?.OnInterstitialShown();
         }
 
-        [MonoPInvokeCallback(typeof(YabbiCallbacks))]
+        [MonoPInvokeCallback(typeof(YabbiInterstitialCallbacks))]
         internal static void OnInterstitialClosed()
         {
             _interstitialAdListener?.OnInterstitialClosed();
         }
 
-        [MonoPInvokeCallback(typeof(YabbiFailedCallbacks))]
+        [MonoPInvokeCallback(typeof(YabbiInterstitialFailedCallbacks))]
         internal static void OnInterstitialFailed(string message)
         {
             _interstitialAdListener?.OnInterstitialFailed(message);
@@ -105,31 +105,31 @@ namespace YabbiAds.Platform.iOS
 
         #region Video Delegate
 
-        [MonoPInvokeCallback(typeof(YabbiCallbacks))]
+        [MonoPInvokeCallback(typeof(YabbiVideoCallbacks))]
         internal static void OnVideoLoaded()
         {
             _videoAdListener?.OnVideoLoaded();
         }
 
-        [MonoPInvokeCallback(typeof(YabbiCallbacks))]
+        [MonoPInvokeCallback(typeof(YabbiVideoCallbacks))]
         internal static void OnVideoShown()
         {
             _videoAdListener?.OnVideoShown();
         }
 
-        [MonoPInvokeCallback(typeof(YabbiCallbacks))]
+        [MonoPInvokeCallback(typeof(YabbiVideoCallbacks))]
         internal static void OnVideoClosed()
         {
             _videoAdListener?.OnVideoClosed();
         }
 
-        [MonoPInvokeCallback(typeof(YabbiCallbacks))]
+        [MonoPInvokeCallback(typeof(YabbiVideoCallbacks))]
         internal static void OnVideoFinished()
         {
             _videoAdListener?.OnVideoFinished();
         }
 
-        [MonoPInvokeCallback(typeof(YabbiFailedCallbacks))]
+        [MonoPInvokeCallback(typeof(YabbiVideoFailedCallbacks))]
         internal static void OnVideoFailed(string message)
         {
             _videoAdListener?.OnVideoFailed(message);
