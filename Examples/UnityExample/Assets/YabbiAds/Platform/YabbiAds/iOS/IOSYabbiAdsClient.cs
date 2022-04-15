@@ -23,102 +23,119 @@ namespace YabbiAds.Platform.iOS
 
         public void Initialize(string publisherID)
         {
-            throw new System.NotImplementedException();
+            YabbiAdsObjCBridge.YabbiInitialize(publisherID);
         }
 
         public void InitializeAd(string unitID, int type)
         {
-            throw new System.NotImplementedException();
+            YabbiAdsObjCBridge.YabbiInitializeAd(unitID, type);
         }
 
         public bool IsAdInitialized(int adType)
         {
-            throw new System.NotImplementedException();
+            return YabbiAdsObjCBridge.YabbiIsAdInitialized(adType);
         }
 
         public void ShowAd(int adType)
         {
-            throw new System.NotImplementedException();
+            YabbiAdsObjCBridge.YabbiShowAd(adType);
         }
 
         public bool IsAdLoaded(int adType)
         {
-            throw new System.NotImplementedException();
+            return YabbiAdsObjCBridge.YabbiIsAdLoaded(adType);
         }
 
         public void LoadAd(int adType)
         {
-            YabbiAdsObjCBridge.YabbiAdsLoadAd(adType);
+            YabbiAdsObjCBridge.YabbiLoadAd(adType);
         }
 
         public void SetAlwaysRequestLocation(int adType, bool isEnabled)
         {
-            YabbiAdsObjCBridge.YabbiAdsSetAlwaysRequestLocation(adType, isEnabled);
+            YabbiAdsObjCBridge.YabbiSetAlwaysRequestLocation(adType, isEnabled);
         }
 
         public void SetInterstitialCallbacks(IInterstitialAdListener adListener)
         {
             _interstitialAdListener = adListener;
-            YabbiAdsObjCBridge.YabbiAdsSetInterstitialDelegate(IntestitalListener);
+            YabbiAdsObjCBridge.YabbiSetInterstitialDelegate(OnInterstitialLoaded, OnInterstitialShown, OnVideoClosed,
+                OnInterstitialFailed);
         }
 
         public void SetVideoCallbacks(IVideoAdListener adListener)
         {
             _videoAdListener = adListener;
-            YabbiAdsObjCBridge.YabbiAdsSetVideoDelegate(VideoListener);
+            YabbiAdsObjCBridge.YabbiSetVideoDelegate(OnVideoLoaded, OnVideoShown, OnVideoClosed, OnVideoFinished,
+                OnVideoFailed);
         }
 
         public void DestroyAd(int adType)
         {
-            throw new System.NotImplementedException();
+            YabbiAdsObjCBridge.YabbiDestroAd(adType);
         }
 
         #region Intestital Delegate
 
-        [MonoPInvokeCallback(typeof(YabbiAdsListenerType))]
-        internal static void IntestitalListener(string type, string message)
+        [MonoPInvokeCallback(typeof(YabbiCallbacks))]
+        internal static void OnInterstitialLoaded()
         {
+            _interstitialAdListener?.OnInterstitialLoaded();
+        }
+
+        [MonoPInvokeCallback(typeof(YabbiCallbacks))]
+        internal static void OnInterstitialShown()
+        {
+            _interstitialAdListener?.OnInterstitialShown();
+        }
+
+        [MonoPInvokeCallback(typeof(YabbiCallbacks))]
+        internal static void OnInterstitialClosed()
+        {
+            _interstitialAdListener?.OnInterstitialClosed();
+        }
+
+        [MonoPInvokeCallback(typeof(YabbiFailedCallbacks))]
+        internal static void OnInterstitialFailed(string message)
+        {
+            _interstitialAdListener?.OnInterstitialFailed(message);
         }
 
         #endregion
 
         #region Video Delegate
 
-        [MonoPInvokeCallback(typeof(YabbiAdsListenerType))]
-        internal static void VideoListener(string type, string message)
+        [MonoPInvokeCallback(typeof(YabbiCallbacks))]
+        internal static void OnVideoLoaded()
         {
+            _videoAdListener?.OnVideoLoaded();
+        }
+
+        [MonoPInvokeCallback(typeof(YabbiCallbacks))]
+        internal static void OnVideoShown()
+        {
+            _videoAdListener?.OnVideoShown();
+        }
+
+        [MonoPInvokeCallback(typeof(YabbiCallbacks))]
+        internal static void OnVideoClosed()
+        {
+            _videoAdListener?.OnVideoClosed();
+        }
+
+        [MonoPInvokeCallback(typeof(YabbiCallbacks))]
+        internal static void OnVideoFinished()
+        {
+            _videoAdListener?.OnVideoFinished();
+        }
+
+        [MonoPInvokeCallback(typeof(YabbiFailedCallbacks))]
+        internal static void OnVideoFailed(string message)
+        {
+            _videoAdListener?.OnVideoFailed(message);
         }
 
         #endregion
-
-
-        // private static void nativeCallback(string type, string message, IAdEvents adEvents)
-        // {
-        //     switch (type)
-        //     {
-        //         case "onLoad":
-        //             adEvents.onLoad();
-        //             break;
-        //         case "onShow":
-        //             adEvents.onShow();
-        //             break;
-        //         case "onFail":
-        //             adEvents.onFail(message);
-        //             break;
-        //         case "onClose":
-        //             adEvents.onClose();
-        //             break;
-        //         case "onComplete":
-        //             adEvents.onComplete();
-        //             break;
-        //         case "YabbiAdsException":
-        //             adEvents.onFail(message);
-        //             break;
-        //         default:
-        //             adEvents.onFail("No case found for " + type + "with message: " + message);
-        //             break;
-        //     }
-        // }
     }
 }
 #endif
