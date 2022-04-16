@@ -4,12 +4,14 @@ using System.Runtime.InteropServices;
 
 namespace YabbiAds.Platform.iOS
 {
-    // [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    // internal delegate void YabbiAdsListenerType([MarshalAs(UnmanagedType.LPStr), In] string type, string message);
+
     internal delegate void YabbiInterstitialCallbacks();
+
     internal delegate void YabbiInterstitialFailedCallbacks(string messgae);
+
     internal delegate void YabbiVideoCallbacks();
-    internal delegate void YabbiVideoFailedCallbacks(string messgae);
+
+    internal delegate void YabbiVideoFailedCallbacks(string message);
 
 
     internal static class YabbiAdsObjCBridge
@@ -45,7 +47,7 @@ namespace YabbiAds.Platform.iOS
             YabbiInterstitialCallbacks onLoaded,
             YabbiInterstitialCallbacks onShown,
             YabbiInterstitialCallbacks onClosed,
-            YabbiInterstitialFailedCallbacks onFailed
+           YabbiInterstitialFailedCallbacks onFailed
         );
 
         [DllImport("__Internal")]

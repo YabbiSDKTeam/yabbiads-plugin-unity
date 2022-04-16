@@ -59,15 +59,24 @@ namespace YabbiAds.Platform.iOS
         public void SetInterstitialCallbacks(IInterstitialAdListener adListener)
         {
             _interstitialAdListener = adListener;
-            YabbiAdsObjCBridge.YabbiSetInterstitialDelegate(OnInterstitialLoaded, OnInterstitialShown, OnVideoClosed,
-                OnInterstitialFailed);
+            YabbiAdsObjCBridge.YabbiSetInterstitialDelegate(
+                OnInterstitialLoaded,
+                OnInterstitialShown,
+                OnVideoClosed,
+                OnInterstitialFailed
+            );
         }
 
         public void SetVideoCallbacks(IVideoAdListener adListener)
         {
             _videoAdListener = adListener;
-            YabbiAdsObjCBridge.YabbiSetVideoDelegate(OnVideoLoaded, OnVideoShown, OnVideoClosed, OnVideoFinished,
-                OnVideoFailed);
+            YabbiAdsObjCBridge.YabbiSetVideoDelegate(
+                OnVideoLoaded,
+                OnVideoShown,
+                OnVideoClosed,
+                OnVideoFinished,
+                OnVideoFailed
+            );
         }
 
         public void DestroyAd(int adType)

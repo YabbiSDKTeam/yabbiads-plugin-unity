@@ -110,7 +110,7 @@ public class Showcase : MonoBehaviour, IInterstitialAdListener, IVideoAdListener
 
     public void OnVideoFailed(string error)
     {
-        WriteNewLog($"VideoAdContainer | onFail", false);
+        WriteNewLog($"VideoAdContainer | onFail | {error}", false);
     }
 
     public void OnVideoShown()

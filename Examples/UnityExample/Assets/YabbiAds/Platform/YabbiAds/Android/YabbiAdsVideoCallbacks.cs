@@ -26,7 +26,7 @@ namespace YabbiAds.Platform.Android
     }
 #else
     {
-        public YabbiAdsInterstitialCallbacks(IInterstitialAdListener listener)
+        public YabbiAdsVideoCallbacks(IVideoAdListener listener)
         {
         }
     }
