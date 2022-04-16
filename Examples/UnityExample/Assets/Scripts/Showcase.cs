@@ -36,8 +36,8 @@ public class Showcase : MonoBehaviour, IInterstitialAdListener, IVideoAdListener
 
             Yabbi.Initialize(PubID);
 
-            Yabbi.InitializeAdContainer(BannerID, YabbiAdsType.INTERSTITIAL);
-            Yabbi.InitializeAdContainer(VideoID, YabbiAdsType.VIDEO);
+            Yabbi.InitializeAdContainer(BannerID, YabbiAdsType.Interstitial);
+            Yabbi.InitializeAdContainer(VideoID, YabbiAdsType.Video);
             Yabbi.SetInterstitialCallbacks(this);
             Yabbi.SetVideoCallbacks(this);
 
@@ -51,21 +51,21 @@ public class Showcase : MonoBehaviour, IInterstitialAdListener, IVideoAdListener
 
     private void Destroy()
     {
-        Yabbi.DestroyAd(YabbiAdsType.INTERSTITIAL);
-        Yabbi.DestroyAd(YabbiAdsType.VIDEO);
+        Yabbi.DestroyAd(YabbiAdsType.Interstitial);
+        Yabbi.DestroyAd(YabbiAdsType.Video);
     }
 
 
     public void StartInterstitialBanner()
     {
         WriteNewLog("Me.Yabbi.Ads.InterstitialAdContainer | load");
-        Yabbi.Load(YabbiAdsType.INTERSTITIAL);
+        Yabbi.Load(YabbiAdsType.Interstitial);
     }
 
     public void StartVideoBanner()
     {
         WriteNewLog("Me.Yabbi.Ads.VideoAdContainer | load");
-        Yabbi.Load(YabbiAdsType.VIDEO);
+        Yabbi.Load(YabbiAdsType.Video);
     }
 
     private void WriteNewLog(string message, bool restart = true)
@@ -84,7 +84,7 @@ public class Showcase : MonoBehaviour, IInterstitialAdListener, IVideoAdListener
     public void OnInterstitialLoaded()
     {
         WriteNewLog("InterstitialAdContainer | onLoad", false);
-        Yabbi.ShowAd(YabbiAdsType.INTERSTITIAL);
+        Yabbi.ShowAd(YabbiAdsType.Interstitial);
     }
 
     public void OnInterstitialFailed(string error)
@@ -105,7 +105,7 @@ public class Showcase : MonoBehaviour, IInterstitialAdListener, IVideoAdListener
     public void OnVideoLoaded()
     {
         WriteNewLog($"VideoAdContainer | onLoad", false);
-        Yabbi.ShowAd(YabbiAdsType.VIDEO);
+        Yabbi.ShowAd(YabbiAdsType.Video);
     }
 
     public void OnVideoFailed(string error)

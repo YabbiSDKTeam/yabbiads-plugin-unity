@@ -35,11 +35,11 @@ namespace YabbiAds.Platform.Android
         {
             switch (adType)
             {
-                case YabbiAdsType.INTERSTITIAL:
+                case YabbiAdsType.Interstitial:
                     _interstitialAdContainer = new AndroidJavaObject(YabbiAdsConstants.InterstitialAdContainerClassName,
                         GetActivity(), _publisherID, unitID);
                     break;
-                case YabbiAdsType.VIDEO:
+                case YabbiAdsType.Video:
                     _videoAdContainer = new AndroidJavaObject(YabbiAdsConstants.VideoAdContainerClassName,
                         GetActivity(), _publisherID, unitID);
                     break;
@@ -50,8 +50,8 @@ namespace YabbiAds.Platform.Android
         {
             return adType switch
             {
-                YabbiAdsType.INTERSTITIAL => _interstitialAdContainer,
-                YabbiAdsType.VIDEO => _videoAdContainer,
+                YabbiAdsType.Interstitial => _interstitialAdContainer,
+                YabbiAdsType.Video => _videoAdContainer,
                 _ => null
             };
         }
@@ -86,10 +86,10 @@ namespace YabbiAds.Platform.Android
         {
             switch (adType)
             {
-                case YabbiAdsType.INTERSTITIAL:
+                case YabbiAdsType.Interstitial:
                     _interstitialAdContainer?.Call("load", new YabbiAdsInterstitialCallbacks(_interstitialAdListener));
                     break;
-                case YabbiAdsType.VIDEO:
+                case YabbiAdsType.Video:
                     _videoAdContainer?.Call("load", new YabbiAdsVideoCallbacks(_videoAdListener));
                     break;
             }
@@ -112,10 +112,10 @@ namespace YabbiAds.Platform.Android
         {
             switch (adType)
             {
-                case YabbiAdsType.INTERSTITIAL:
+                case YabbiAdsType.Interstitial:
                     _interstitialAdContainer = null;
                     break;
-                case YabbiAdsType.VIDEO:
+                case YabbiAdsType.Video:
                     _videoAdContainer = null;
                     break;
             }

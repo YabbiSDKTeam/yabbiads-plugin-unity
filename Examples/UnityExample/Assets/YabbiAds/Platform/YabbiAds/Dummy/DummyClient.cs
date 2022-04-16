@@ -9,61 +9,61 @@ namespace YabbiAds.Platform.Dummy
 
         public void Initialize(string publisherId)
         {
-            debugLog("YabbiAds.initialize");
+            DebugLog("YabbiAds.initialize");
         }
 
         public void InitializeAd(string unitId, int adType)
         {
-            debugLog("YabbiAds.InitializeAdContainer");
+            DebugLog("YabbiAds.InitializeAdContainer");
         }
 
         public bool IsAdInitialized(int adType)
         {
-            debugLog("YabbiAds.isInitialized");
+            DebugLog("YabbiAds.isInitialized");
             return false;
         }
 
         public void ShowAd(int adType)
         {
-            debugLog("YabbiAds.show");
+            DebugLog("YabbiAds.show");
         }
 
         public bool IsAdLoaded(int adType)
         {
-            debugLog("YabbiAds.isLoaded");
+            DebugLog("YabbiAds.isLoaded");
             return false;
         }
 
         public void LoadAd(int adType)
         {
-            debugLog("YabbiAds.Load");
+            DebugLog("YabbiAds.Load");
         }
 
         public void SetAlwaysRequestLocation(int adType, bool isEnabled)
         {
-            debugLog("YabbiAds.SetAlwaysRequestLocation");
+            DebugLog("YabbiAds.SetAlwaysRequestLocation");
         }
 
         public void SetInterstitialCallbacks(IInterstitialAdListener adListener)
         {
-            debugLog("YabbiAds.setInterstitialCallbacks");
+            DebugLog("YabbiAds.setInterstitialCallbacks");
         }
 
         public void SetVideoCallbacks(IVideoAdListener adListener)
         {
-            debugLog("YabbiAds.setVideoCallbacks");
+            DebugLog("YabbiAds.setVideoCallbacks");
         }
 
         public void DestroyAd(int adType)
         {
-            debugLog("YabbiAds.destroy");
+            DebugLog("YabbiAds.destroy");
         }
 
         #endregion
 
         #region Debug
 
-        private void debugLog(string method)
+        private static void DebugLog(string method)
         {
             Debug.Log(
                 $"Call to {method} on not supported platform. To test advertising, install your application on the Android/iOS device.");

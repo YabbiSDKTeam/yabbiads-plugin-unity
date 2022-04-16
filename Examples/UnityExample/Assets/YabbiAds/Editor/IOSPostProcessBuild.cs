@@ -6,7 +6,7 @@ using UnityEditor.iOS.Xcode;
 
 namespace YabbiAds.Editor
 {
-    public class IOSPostProcessBuild
+    public static class IOSPostProcessBuild
     {
         private const string Description =
             "Your data will be used to provide you a better and personalized ad experience.";
