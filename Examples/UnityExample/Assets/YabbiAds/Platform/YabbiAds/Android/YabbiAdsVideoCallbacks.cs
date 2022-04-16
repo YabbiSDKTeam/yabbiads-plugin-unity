@@ -1,3 +1,4 @@
+using UnityEngine;
 using YabbiAds.Common;
 
 namespace YabbiAds.Platform.Android
