@@ -1,165 +1,117 @@
-# YabbiAds - Unity документация
+# YabbiAds
+
+## Руководство по Интеграции
+
+Версия релиза **1.0.0** | Дата релиза **16.04.20212**
+
+
+> Минимальные требования:
+>
+>* Используйте Unity 2018.3+ версии.
+>
+>* Используйте Android API level 19 (Android OS 4.4) и выше.
+>
+>* Используйте iOS 12.0 и выше.
+>
+>* Используйте XCode 13 или выше.
+
 
 ## Оглавление
-* [Системные требования](#системные-требования)
-* [Установка](#установка)
-* [Info.plist](#Info.plist)
-* [Схема работы](#схема-работы)
-* [Общая схема взаимодействия](#общая-схема-взаимодействия)
-* [Использование](#использование)
-* [SDK API](#sdk-api)
-  * [AdEvents](#adevents)
-  * [YabbyAdsException](#yabbiadsexception)
-  * [InterstitialAdContainer](#interstitialadcontainer)
-    * [Конструктор](#конструктор)
-    * [Метод load](#метод-load)
-    * [Метод show](#метод-show)
-    * [Геттер isLoaded](#геттер-isloaded)
-    * [Метод setAlwaysRequestLocation](#метод-setAlwaysRequestLocation)
-  * [VideoAdContainer](#videoadcontainer)
+* [Шаг 1. Установка SDK](#Шаг-1.-Установка-SDK)
+    * [1.1 Скачайте Плагин](1.1-Скачайте-Плагин)
+    * [1.2 Установите Плагин](1.2-Установите-Плагин)
+* [Шаг 2. Подготовка Приложения](#Шаг-2.-Подготовка-Приложения)
+    * [2.1 Настройки для Android](#2.1-Настройки-для-Android)
+        * [2.1.1 Обновите Версию Gradle Плагина](#2.1.1-Обновите-Версию-Gradle)
+        * [2.1.2 Настройка-External-Dependency-Manager](#2.1.2-Настройка-External-Dependency-Manager)
+        * [2.1.3 Настройка AndroidManifest.xml](#2.1.3-Настройка-AndroidManifest.xml)
+        * [2.1.4 Поддержка Multidex](#2.1.4-Поддержка-Multidex)
+    * [2.2 Настройки для iOS Платформы](#2.2-Настройки-для-iOS-Платформы)
+        * [2.2.1 Настройка Info.plist](#2.2.1-Настройка-Info.plist)
+* [Шаг 3. Инициализация SDK](#Шаг-3.-Инициализация-SDK)
+    * [3.1 Добавьте пространства имен](#3.1-Добавьте-пространства-имен)
+    * [3.2 Добавьте код в метод Start() главного скрипта MonoBehavior](#3.2-Добавьте-код-в-метод-Start()-главного-скрипта-MonoBehavior)
 
-## Системные требования
-iOS 12+.
+## Шаг 1. Установка SDK
 
-## Установка
-Добавляем в наш проект YabbiSdk.unitypackage в папке Assets/Plugins/iOS
+### 1.1 Скачайте Плаги
+Загрузите **YabbiAds Unity Plugin 1.0.0**. Он включает в себя последнии версии Android и IOS Yabbi SDK.
 
-## Info.plist
-Необходимо добавить описание для ключей в Info.plist
-* NSUserTrackingUsageDescription - для определния идентификатора устройства(ifa)
-* NSLocationWhenInUseUsageDescription - для геопозиции
+### 1.2 Установите Плагин
+Чтобы импортировать в проект YabbiAds Unity Plugin, дважды щелкните по YabbiAds-Unity-Plugin-1.0.0.unitypackage файлу, или перейдите в **Assets** → **Import Package** → **Custom Package**. В открывшемся окне, нажмите на кнопку **Import**, оставив все файлы выделенными.
 
-## Схема работы
-![Схема работы](sheme.png "Схема работы")
+## Шаг 2. Подготовка Приложения
+### 2.1 Настройки для Android
+#### 2.1.1 Обновите Версию Gradle
 
-## Общая схема взаимодействия
-В приложениях креативы показываются в вебвью элементе. Для работы с iOS, C# обращается к публичным функциям, помеченным аннотацией `@_cdelcl`.    
-Аннотация говорит о том, что функции доступны на Objective-C.  
-Через них идет обращение к приватному Singleton-классу, который отвечает за взаимодействие с нативной SDK на Swift.   
-Примечание: Тестировать показ рекламы можно только в собранном iOS приложении. В Unity Editor будет выброшена ошибка среды.
+Подготовьте Gradle сборки для Android 11
+>
+>В Android 11 изменился способ запроса приложений и взаимодействия с другими.
+приложениями, установленными пользователем на устройстве.
+По этой причине убедитесь, что вы используете версию Gradle,
+которая соответствует одной из перечисленных [здесь](https://developer.android.com/studio/releases/gradle-plugin#4-0-0).
 
-Цепочка взаимодействия:
-1. Пользователь создает аккаунт (или редактирует уже имеющийся) и добавляет сове приложение в свой аккаунт;
-2. Пользователь вызывает метод инициализации в SDK, передавая свой идентификатор пользователя, полученный из веб интерфейса bestssp;
-3. Пользователь вызывает метод загрузки креатива, передавая идентификатор своего приложения, формат будущего показа;
-4. Пользователь вызывает метод показа уже загруженного креатива. В этот момент происходит показ баннера.
+#### 2.1.2 Настройка External Dependency Manager
 
-## Использование
-Для использования вам потребуется получить идентификатор издателя и идентификатор размещения, они выдаются в личном кабинете пользователя.  
-Пример использования показа полноэкранной баннерной рекламы показан ниже. _([VideoAdContainer](#videoadcontainer) используется аналогично, просто замените InterstitialAdContainer на VideoAdContainer в коде ниже.)_  
-Необходимо заменить YOUR_PUBLISHER_ID на ваш идентификатор издателя и YOUR_UNIT_ID на ваш идентификатор размещения.
+External Dependency Manager уже включен в плагин.
+Для разрешения конфликтов зависимостей в вашем приложении выполните следующие шаги:
 
-```C#
-using Me.Yabbi.Ads;
+1. После импорта плагина в редакторе Unity выберите File → Build Settings → Android.
+2. Добавьте флаг Custom Gradle Template для Unity 2018.4 - Unity 2019.2 версий или Custom Main Gradle Template для Unity 2019.3 или выше (Build Settings → Player Settings → Publishing settings).
+3. Включите настройку - "Patch mainTemplate.gradle" (Assets → External Dependency Manager → Android Resolver → Settings).
+4. Включите настройку - "Use Jetifier" (Assets → External Dependency Manager → Android Resolver → Settings).
+5. Затем выберите Assets → External Dependency Manager → Android Resolver и нажмите Resolve или Force Resolve.
+6. Модули, которые необходимы для работы будут импортированы в mainTemplate.gradle вашего проекта.
 
-private InterstitialAdContainer interstitialAdContainer;
+#### 2.1.3 Настройка AndroidManifest.xml
 
+Мы различаем 2 типа разрешений: обязательные разрешения, без которых SDK не может работать, и дополнительные, необходимые для улучшения таргетинга.
 
-private const string pubId = YOUR_PUBLISHER_ID;
+Это обязательные разрешения:
 
-void Start()
-{
-    interstitialAdContainer = new InterstitialAdContainer(pubId, YOUR_UNIT_ID);
+```xml
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.INTERNET" />
+```
+Это дополнительные разрешения:
 
-}
-
-public void StartInterstitialBanner()
-{
-     interstitialAdContainer.Load(new AutoShowAdEvents(interstitialAdContainer));
-}
-
-
-public class AutoShowAdEvents : IAdEvents {
-    BaseAdContainer container;
-
-    public AutoShowAdEvents(BaseAdContainer adContainer){
-        container = adContainer;
-    }
-     public void onLoad(){
-        container.Show();
-    }
-     public void onFail(string error){
-        Debug.Log(error);
-    }
-     public void onShow(){
-        Debug.Log("onShow");
-    }
-     public void onClose(){
-        Debug.Log("onClose");
-        container.Dispose();
-    }
-     public void onComplete(){
-        Debug.Log("onComplete");
-    }
-}
-  
+```xml
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> 
 ```
 
-## SDK API
+Добавьте все обязательные разрешения в **AndroidManifest.xml** вашего проекта.
+Если вы хотите использовать какие-либо дополнительные разрешения, добавьте их после обязательных разрешений.
 
-### AdEvents:
-Протокол AdEvents используется для получения callback-ов о взаимодействии с рекламой. Необходимо создать унаследованный от него класс.
+#### 2.1.4 Поддержка Multidex
+* Если вы используете Unity версии 2019.2 или ниже, вам нужно добавить поддержку multidex в ваш проект. Следуйте этому руководству, чтобы добавить Multidex.
 
-void onLoad() //метод вызывается когда рекламный контент был успешно загружен
-void onFail(error:String) //вызывается при происхождении ошибки препятствующей загрузке рекламы
-void onShow() //вызывается в момент показа рекламы пользователю
-void onComplete() //вызывается в VideoAdContainer в момент окончания видео, в случае rewarded типа видео можно награждать пользователя по этому событию
-void onClose() //вызывается при закрытии пользователем рекламного окна
+* Если вы используете Unity версии 2019.3 или выше, в Player Settings → Publishing Settings → Other Settings установите Minimum API Level 19 или выше.
 
-
-### YabbiAdsException:
-Класс YabbiAdsException используется для выброски исключений связанных с SDK.
-
-### InterstitialAdContainer:
-Класс InterstitialAdContainer используется для показа "промежуточной" (межэкранной) рекламы в виде фуллскрин баннера.  
-Примечание: В дальнейшем инстанс можно переиспользовать, если вызвать load после закрытия предыдущей рекламы.
-
-#### Конструктор:
-Параметры:  
-publisherId -- ID паблишера, который был получен в личном кабинете  
-unitId -- ID рекламного юнита, получается в личном кабинете  
-controller -- UIViewController через которого будет вызываться показ баннерной рекламы. Если controller == nil то подставляется top-controller(активный сейчас)
-
-InterstitialAdContainer(publisherId: publisherId, unitId:unitId, controller: controller)
+### 2.2 Настройки для iOS Платформы
 
 
-#### Метод load:
-Инициирует загрузку рекламы.  
-Когда реклама будет загружена вызовется колбек adEvents.onLoad().  
-При ошибке вызовет колбек adEvents.onFail(error:String).  
-По умолчанию контейнер запрашивает доступ к геолокации во время вызова этого метода, при помощи метода [setAlwaysRequestLocation](#метод-setAlwaysRequestLocation) данный функционал можно отключить.   
-Начиная с iOS 14.5 контейнер запрашивает разрешение на "отслеживание активности в приложениях других компаний", нужно получить разрешение пользователя, что идентифицировать его рекламный идентификатор.
+#### 2.2.1 Настройка Info.plist
+Следующие ключи помогут улучшить таргетинг рекламы:
 
-void load(adEvents: AdEvents)
+**NSUserTrackingUsageDescription** - Начиная с iOS 14 использование IDFA требует разрешения от пользователя. Добавление описания поможет объяснить пользователю необходимость данного разрешения.
+
+**NSLocationWhenInUseUsageDescription** - Необходимо добавлять если в вашем приложении можно использовать данные геолокации.
 
 
-#### Метод show:
-Вызывает показ рекламного баннера пользователю, при показе вызовется колбек adEvents.onShow().  
-Может выбросить исключение если попытаться показать рекламу которая не была загружена.  
-Также выбрасывает исключение при попытке повторного показа одной и той же рекламы.  
-Когда пользователь закроет рекламу будет вызван колбек adEvents.onClose().  
+## Шаг 3. Инициализация SDK
+Перед тем, как начать загрузку рекламы, вам необходимо инициализировать SDK следующим образом:
 
-void show()
+### 3.1 Добавьте пространства имен
 
+```c#
+using YabbiAds.Api;
+using YabbiAds.Common;
+```
 
-#### Геттер isLoaded:
-Проверяет была-ли загружена реклама
+### 3.2  Добавьте код в метод `Start()`  главного скрипта `MonoBehavior`
+```c#
+Yabbi.Initialize("YOUR_PUBLISHER_KEY");
+```
 
-isLoaded: Bool
-
-
-#### Метод setAlwaysRequestLocation:
-Позволяет включить/отключить функционал автоматического запроса разрешения на доступ к гео функциям.
-
-void setAlwaysRequestLocation(isEnabled: Bool)
-
-#### Dispose:
-Позволяет уничтожить инстанс рекламного конейтера, для освобождения памяти.
-Примечание: После вызова метода, объект нельзя переиспользовать.
-
-### VideoAdContainer:
-Класс VideoAdContainer используется для показа fullscreen video (полноэкранного видео) и fullscreen rewarded video (полноэкранное награждаемое видео).  
-Тип показываемого рекламного видео (награждаемое/обычное) определяется исходят из unitID, которое было получено в административной панели при настройке рекламного места в инвентаре, поэтому уделите особое внимание выбору типа рекламного места и убедитесь, что оно выбранно именно такое какое вам нужно.  
-В остальном использование контейнера (и особенности поведения) схоже с использованием [InterstitialAdContainer](#interstitialadcontainer), см. главу [Использование](#использование).  
-Вознаграждаемое видео отличается тем, что закрытие видео возможно только после его полного просмотра, либо в случае ошибки. Награждать пользователя можно по происхождению события adEvents.onComplete.  
-Примечание: В дальнейшем инстанс можно переиспользовать, если вызвать load после закрытия предыдущей рекламы.
+> Замените YOUR_PUBLISHER_KEY на ключ издателя из личного кабинета.
