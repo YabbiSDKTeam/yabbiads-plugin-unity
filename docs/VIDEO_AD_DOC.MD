@@ -25,7 +25,7 @@ YourClassName : IVideoAdListener;
 ```
 2. Затем вызовите следующий метод:
 ```c#
-Appodeal.SetVideoCallbacks(this);
+Yabbi.SetVideoCallbacks(this);
 ```
 4. Теперь вы можете использовать следующие методы в своем коде:
 ```c#

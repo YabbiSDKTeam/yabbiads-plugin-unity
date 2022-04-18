@@ -25,7 +25,7 @@ YourClassName : IInterstitialAdListener;
 ```
 2. Затем вызовите следующий метод:
 ```c#
-Appodeal.SetInterstitialCallbacks(this);
+Yabbi.SetInterstitialCallbacks(this);
 ```
 4. Теперь вы можете использовать следующие методы в своем коде:
 ```c#
