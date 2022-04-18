@@ -114,4 +114,4 @@ using YabbiAds.Common;
 Yabbi.Initialize("YOUR_PUBLISHER_KEY");
 ```
 
-> Замените YOUR_PUBLISHER_KEY на ключ издателя из личного кабинета.
+> Замените YOUR_PUBLISHER_KEY на ключ издателя из [личного кабинета](https://mobileadx.ru).

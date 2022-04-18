@@ -72,7 +72,15 @@ namespace YabbiAds.Platform.Android
             return boolean;
         }
 
-        public bool IsAdInitialized(int adType) => GetAdByType(adType) != null;
+        public bool IsAdInitialized(int adType)
+        {
+            return adType switch
+            {
+                YabbiAdsType.Interstitial => _interstitialAdContainer != null && _interstitialAdListener != null,
+                YabbiAdsType.Video => _videoAdContainer != null && _videoAdListener != null,
+                _ => false
+            };
+        }
 
         public void ShowAd(int adType) => GetAdByType(adType)?.Call("show");
 

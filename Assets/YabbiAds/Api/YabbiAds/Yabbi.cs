@@ -17,7 +17,7 @@ namespace YabbiAds.Api
             GetInstance().Initialize(publisherID);
         }
 
-        public static void InitializeAdContainer(string unitID, int adType)
+        public static void InitializeAd(string unitID, int adType)
         {
             GetInstance().InitializeAd(unitID, adType);
         }
@@ -37,7 +37,7 @@ namespace YabbiAds.Api
             return GetInstance().IsAdLoaded(adType);
         }
 
-        public static void Load(int adType)
+        public static void LoadAd(int adType)
         {
             GetInstance().LoadAd(adType);
         }

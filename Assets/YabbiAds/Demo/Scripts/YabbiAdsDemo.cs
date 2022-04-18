@@ -37,8 +37,8 @@ public class YabbiAdsDemo : MonoBehaviour, IInterstitialAdListener, IVideoAdList
 
             Yabbi.Initialize(PubID);
 
-            Yabbi.InitializeAdContainer(InterstitialID, YabbiAdsType.Interstitial);
-            Yabbi.InitializeAdContainer(VideoID, YabbiAdsType.Video);
+            Yabbi.InitializeAd(InterstitialID, YabbiAdsType.Interstitial);
+            Yabbi.InitializeAd(VideoID, YabbiAdsType.Video);
             Yabbi.SetInterstitialCallbacks(this);
             Yabbi.SetVideoCallbacks(this);
 
@@ -60,13 +60,13 @@ public class YabbiAdsDemo : MonoBehaviour, IInterstitialAdListener, IVideoAdList
     public void StartInterstitialBanner()
     {
         WriteNewLog("InterstitialAdContainer | load");
-        Yabbi.Load(YabbiAdsType.Interstitial);
+        Yabbi.LoadAd(YabbiAdsType.Interstitial);
     }
 
     public void StartVideoBanner()
     {
         WriteNewLog("VideoAdContainer | load");
-        Yabbi.Load(YabbiAdsType.Video);
+        Yabbi.LoadAd(YabbiAdsType.Video);
     }
 
     private void WriteNewLog(string message, bool restart = true)
