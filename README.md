@@ -16,7 +16,7 @@
 >* Используйте XCode 13 или выше.
 
 ## Демо приложение
-Используйте [наше демо](https://github.com/YabbiSDKTeam/yabbiads-unity-demo) приложение в качестве примера.
+Используйте наше [демо приложение](https://github.com/YabbiSDKTeam/yabbiads-unity-demo) в качестве примера.
 
 
 ## Оглавление
