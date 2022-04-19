@@ -127,4 +127,17 @@ YabbiAds предоставляет на выбор 2 типа рекламы.
 Вы можете ознакомиться с установкой каждого типа в соответствующей документации:
 
 1. [Полноэкранный баннер](docs/INTERSTITIAL_AD_DOC.MD)
-2. [Полноэкранный видео баннер](docs/VIDEO_AD_DOC.MD)
+2. [Полноэкранный видео баннер](docs/VIDEO_A
+
+## Возможные ошибки
+
+### iOS
+1. Ошибка биткода при сборке архива
+
+```
+bitcode bundle could not be generated because 'path_to_your_project/build  
+/iOS/Frameworks/Plugins/iOS/YabbiAds/YabbiSdk.framework/YabbiSdk'
+was built without full bitcode.
+```
+
+Чтобы исправить ошибку перейдите в ваш проект(Unity-iPhone) → Build Settings. В пункте Build Options установите значение параметра Enable Bitcode на false.
