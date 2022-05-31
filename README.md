@@ -2,7 +2,7 @@
 
 ## Руководство по Интеграции
 
-Версия релиза **1.0.0** | Дата релиза **16.04.20212**
+Версия релиза **1.0.0** | Дата релиза **16.04.2022**
 
 
 > Минимальные требования:
@@ -24,12 +24,12 @@
     * [1.1 Скачайте Плагин](1.1-Скачайте-Плагин)
     * [1.2 Установите Плагин](1.2-Установите-Плагин)
 * [Шаг 2. Подготовка Приложения](#Шаг-2.-Подготовка-Приложения)
-    * [2.1 Настройки для Android](#2.1-Настройки-для-Android)
+    * [2.1 Настройки для Android платформы](#2.1-Настройки-для-Android-платформы)
         * [2.1.1 Обновите Версию Gradle Плагина](#2.1.1-Обновите-Версию-Gradle)
         * [2.1.2 Настройка-External-Dependency-Manager](#2.1.2-Настройка-External-Dependency-Manager)
         * [2.1.3 Настройка AndroidManifest.xml](#2.1.3-Настройка-AndroidManifest.xml)
-        * [2.1.4 Поддержка Multidex](#2.1.4-Поддержка-Multidex)
-    * [2.2 Настройки для iOS Платформы](#2.2-Настройки-для-iOS-Платформы)
+        * [2.1.4 Запрос геолокации пользователя](#2.1.4-Запрос-геолокации-пользователя)
+    * [2.2 Настройки для iOS платформы](#2.2-Настройки-для-iOS-платформы)
         * [2.2.1 Настройка Info.plist](#2.2.1-Настройка-Info.plist)
 * [Шаг 3. Инициализация SDK](#Шаг-3.-Инициализация-SDK)
     * [3.1 Добавьте пространства имен](#3.1-Добавьте-пространства-имен)
@@ -38,14 +38,14 @@
 
 ## Шаг 1. Установка SDK
 
-### 1.1 Скачайте Плаги
+### 1.1 Скачайте Плагин
 Загрузите **YabbiAds Unity Plugin 1.0.0**. Он включает в себя последнии версии Android и IOS Yabbi SDK.
 
 ### 1.2 Установите Плагин
 Чтобы импортировать в проект YabbiAds Unity Plugin, дважды щелкните по YabbiAds-Unity-Plugin-1.0.0.unitypackage файлу, или перейдите в **Assets** → **Import Package** → **Custom Package**. В открывшемся окне, нажмите на кнопку **Import**, оставив все файлы выделенными.
 
 ## Шаг 2. Подготовка Приложения
-### 2.1 Настройки для Android
+### 2.1 Настройки для Android платформы
 #### 2.1.1 Обновите Версию Gradle
 
 Подготовьте Gradle сборки для Android 11
@@ -62,10 +62,25 @@ External Dependency Manager уже включен в плагин.
 
 1. После импорта плагина в редакторе Unity выберите File → Build Settings → Android.
 2. Добавьте флаг Custom Gradle Template для Unity 2018.4 - Unity 2019.2 версий или Custom Main Gradle Template для Unity 2019.3 или выше (Build Settings → Player Settings → Publishing settings).
-3. Включите настройку - "Patch mainTemplate.gradle" (Assets → External Dependency Manager → Android Resolver → Settings).
-4. Включите настройку - "Use Jetifier" (Assets → External Dependency Manager → Android Resolver → Settings).
-5. Затем выберите Assets → External Dependency Manager → Android Resolver и нажмите Resolve или Force Resolve.
-6. Модули, которые необходимы для работы будут импортированы в mainTemplate.gradle вашего проекта.
+3. Добавьте флаг Custom Launcher Gradle Template (Build Settings → Player Settings → Publishing settings).
+4. Включите настройку - "Patch mainTemplate.gradle" (Assets → External Dependency Manager → Android Resolver → Settings).
+5. Включите настройку - "Use Jetifier" (Assets → External Dependency Manager → Android Resolver → Settings).
+6. Затем выберите Assets → External Dependency Manager → Android Resolver и нажмите Resolve или Force Resolve.
+7. Добавьте следующий код в launcherTemplate.gradle
+```gradle
+android {
+   
+    // другие настройки
+        
+    defaultConfig {
+        
+        // другие настройки
+          
+        multiDexEnabled true
+    }
+}
+```
+8. Модули, которые необходимы для работы будут импортированы в mainTemplate.gradle вашего проекта.
 
 #### 2.1.3 Настройка AndroidManifest.xml
 
@@ -87,12 +102,13 @@ External Dependency Manager уже включен в плагин.
 Добавьте все обязательные разрешения в **AndroidManifest.xml** вашего проекта.
 Если вы хотите использовать какие-либо дополнительные разрешения, добавьте их после обязательных разрешений.
 
-#### 2.1.4 Поддержка Multidex
-* Если вы используете Unity версии 2019.2 или ниже, вам нужно добавить поддержку multidex в ваш проект. Следуйте этому руководству, чтобы добавить Multidex.
+#### 2.1.4 Запрос геолокации пользователя
+Для эффективного таргетирования рекламы SDK собирает данные геолокации.
+Начиная с Android 6.0 (API level 23) для доступа к геолокации требуется разрешение пользователя. Для предоставления разрешений на Android платформе мы рекомендуем использовать плагин [UnityAndroidRuntimePermissions](https://github.com/yasirkula/UnityAndroidRuntimePermissions), который позволяет получать результат от пользователь синхронным кодом.
 
-* Если вы используете Unity версии 2019.3 или выше, в Player Settings → Publishing Settings → Other Settings установите Minimum API Level 19 или выше.
+> iOS SDK запрашивает геолокацию автоматически, и не требует изменений в коде.
 
-### 2.2 Настройки для iOS Платформы
+### 2.2 Настройки для iOS платформы
 
 
 #### 2.2.1 Настройка Info.plist
@@ -115,10 +131,12 @@ using YabbiAds.Common;
 
 ### 3.2  Добавьте код в метод `Start()`  главного скрипта `MonoBehavior`
 ```c#
-Yabbi.Initialize("YOUR_PUBLISHER_KEY");
+var configuration = new YabbiConfiguration("YOUR_PUBLISHER_ID", "YOUR_INTERSTITIAL_ID", "YOUR_REWARDED_ID");
+Yabbi.Initialize(configuration);
 ```
-
-> Замените YOUR_PUBLISHER_KEY на ключ издателя из [личного кабинета](https://mobileadx.ru).
+1. Замените YOUR_PUBLISHER_KEY на ключ издателя из [личного кабинета](https://mobileadx.ru).
+2. Замените YOUR_INTERSTITIAL_ID на ключ соответствующий баннерной рекламе из [личного кабинета](https://mobileadx.ru).
+3. Замените YOUR_REWARDED_ID на ключ соответствующий видео с вознаграждением из [личного кабинета](https://mobileadx.ru).
 
 
 ## Шаг 4. Настройка типов рекламы
@@ -127,7 +145,7 @@ YabbiAds предоставляет на выбор 2 типа рекламы.
 Вы можете ознакомиться с установкой каждого типа в соответствующей документации:
 
 1. [Полноэкранный баннер](docs/INTERSTITIAL_AD_DOC.MD)
-2. [Полноэкранный видео баннер](docs/VIDEO_A
+2. [Полноэкранный видео баннер](docs/REWARDED_AD_DOC.MD)
 
 ## Возможные ошибки
 

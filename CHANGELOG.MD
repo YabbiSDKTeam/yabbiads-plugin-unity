@@ -2,6 +2,12 @@
 
 ## Changelog
 
-1.0.0 (16.04.22022)
+1.0.0 (16.04.2022)
 
 + Release plugin for iOS and Android
+
+1.1.0 (31.05.2022)
+
++ Methods for video was renamed. Now it called rewarded. Documentation was changed.
++ Migrate Android SDK to 2.0.0. Android installation was changed.
++ Method **SetAlwaysRequestLocation** was marked deprecated. You can't use it for android anymore. 

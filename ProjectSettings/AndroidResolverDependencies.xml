@@ -1,13 +1,6 @@
 <dependencies>
   <packages>
-    <package>androidx.appcompat:appcompat:1.4.1</package>
-    <package>com.android.support.constraint:constraint-layout:1.1.3</package>
-    <package>com.google.android.gms:play-services-ads-identifier:18.0.1</package>
-    <package>com.google.android.gms:play-services-location:19.0.1</package>
-    <package>com.squareup.okhttp3:okhttp:5.0.0-alpha.6</package>
-    <package>io.reactivex.rxjava2:rxandroid:2.1.1</package>
-    <package>io.reactivex.rxjava2:rxjava:2.2.21</package>
-    <package>org.greenrobot:eventbus:3.3.1</package>
+    <package>me.yabbi.ads:sdk:2.0.0</package>
   </packages>
   <files />
   <settings>
@@ -23,6 +16,6 @@
     <setting name="patchAndroidManifest" value="True" />
     <setting name="patchMainTemplateGradle" value="True" />
     <setting name="projectExportEnabled" value="False" />
-    <setting name="useJetifier" value="False" />
+    <setting name="useJetifier" value="True" />
   </settings>
 </dependencies>
