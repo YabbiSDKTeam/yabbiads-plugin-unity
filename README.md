@@ -146,3 +146,12 @@ was built without full bitcode.
 ```
 
 Чтобы исправить ошибку перейдите в ваш проект(Unity-iPhone) → Build Settings. В пункте Build Options установите значение параметра Enable Bitcode на false.
+
+2. Cycle inside UnityFramework; building could produce unreliable results.
+
+```
+Cycle inside UnityFramework; building could produce unreliable results.
+This usually can be resolved by moving the target's Headers build phase before Compile Sources.
+```
+
+Перейдите в ваше проект → UnityFramework → Build Phases. Переместите Headers выше Compile Sources.
